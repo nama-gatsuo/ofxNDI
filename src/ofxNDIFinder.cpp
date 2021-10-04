@@ -27,12 +27,14 @@ std::function<std::vector<Source>(bool, bool)> Finder::watchSources(bool show_lo
 		if (!finder) return;
 		while(!terminate_) {
 			if(!NDIlib_find_wait_for_sources(finder, 5000)) {
+				ofLog() << "No NDI sources found";
 				continue;
 			}
 			unsigned int num_sources=0;
 			const NDIlib_source_t* sources = NDIlib_find_get_current_sources(finder, &num_sources);
 			std::vector<Source> ret;
 			ret.insert(std::end(ret), sources, sources+num_sources);
+			ofLog() << "New " << num_sources << " sources found.";
 			for(auto &r : ret) {
 				ofLogVerbose("ofxNDI::listSources") << "NDI Source Detected : " << r.p_ndi_name << "," << r.p_url_address;
 			}
