@@ -12,6 +12,7 @@ public:
 	void decode(ofPixels &dst) const;
 	void setMetadata(const std::string &metadata);
 	ofPixelFormat getOfPixelFormat() const;
+	static std::string convertFourCCTypeToString(NDIlib_FourCC_video_type_e fourCC);
 private:
 	std::string metadata_buffer_;
 	bool is_allocated_=false;

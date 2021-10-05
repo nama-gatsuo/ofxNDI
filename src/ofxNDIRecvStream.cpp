@@ -3,7 +3,7 @@
 
 template<>
 bool ofxNDIRecvVideoBlocking::captureFrame(ofxNDI::VideoFrame &frame) {
-	return NDIlib_recv_capture_v2(instance_, &frame, nullptr, nullptr, timeout_ms_) == NDIlib_frame_type_video;
+	return NDIlib_recv_capture_v3(instance_, &frame, nullptr, nullptr, timeout_ms_) == NDIlib_frame_type_video;
 }
 template<>
 void ofxNDIRecvVideoBlocking::freeFrame(ofxNDI::VideoFrame &frame) {
@@ -11,7 +11,7 @@ void ofxNDIRecvVideoBlocking::freeFrame(ofxNDI::VideoFrame &frame) {
 }
 template<>
 bool ofxNDIRecvVideoThreading::captureFrame(ofxNDI::VideoFrame &frame) {
-	return NDIlib_recv_capture_v2(instance_, &frame, nullptr, nullptr, timeout_ms_) == NDIlib_frame_type_video;
+	return NDIlib_recv_capture_v3(instance_, &frame, nullptr, nullptr, timeout_ms_) == NDIlib_frame_type_video;
 }
 template<>
 void ofxNDIRecvVideoThreading::freeFrame(ofxNDI::VideoFrame &frame) {

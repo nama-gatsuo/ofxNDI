@@ -32,6 +32,9 @@ public:
 		frame_.swap();
 	}
 	virtual void sendFrame(const Frame &frame) const{}
+
+	const Frame& getFrame() const { return frame_.front(); }
+
 protected:
 	typename Type::Instance instance_;
 	DoubleBuffer<Frame> frame_;
@@ -43,6 +46,18 @@ class VideoStream : public Stream<VideoFrame>
 public:
 	bool isAsync() const { return is_async_; }
 	void setAsync(bool async) { is_async_ = async; }
+
+	// The framerate is specified as a numerator and denominator,
+	// such that the following is valid: 
+	//	frame_rate = (float)frame_rate_N / (float)frame_rate_D
+	// Some examples of common framerates are presented in the table below.
+	// 
+	// Standard        |Ratio (N / D) | Framerate
+	// NTSC 1080i59.94 | 30000 / 1001 | 29.97 Hz
+	// NTSC 720p59.94  | 60000 / 1001 | 59.94 Hz 
+	// PAL 1080i50     | 30000 / 1200 | 25 Hz
+	// PAL 720p50      | 60000 / 1200 | 50 Hz 
+	// NTSC 24fps      | 24000 / 1001 | 23.98 Hz
 	void setFrameRate(int frame_rate_n, int frame_rate_d) { frame_rate_n_=frame_rate_n; frame_rate_d_=frame_rate_d; }
 protected:
 	bool is_async_=false;

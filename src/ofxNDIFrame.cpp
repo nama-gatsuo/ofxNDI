@@ -79,6 +79,17 @@ ofPixelFormat VideoFrame::getOfPixelFormat() const
 	return getOfPixelFormatFromFourCCType(FourCC);
 }
 
+std::string ofxNDI::VideoFrame::convertFourCCTypeToString(NDIlib_FourCC_video_type_e fourCC)
+{
+	uint8_t ch0 = 0xff & fourCC;
+	uint8_t ch1 = 0xff & (fourCC >> 8);
+	uint8_t ch2 = 0xff & (fourCC >> 16);
+	uint8_t ch3 = 0xff & (fourCC >> 24);
+	std::stringstream str;
+	str << ch0 << ch1 << ch2 << ch3;
+	return str.str();
+}
+
 int VideoFrame::getLineStrideInBytes(NDIlib_FourCC_video_type_e type, int width)
 {
 	int bits_per_pixel = getBitsPerPixel(type);
